@@ -16,7 +16,6 @@ export default function Login() {
   // here it tracks the button being disabled when form in not filled
   const [isDisabled, setIsdisabled] = useState(true);
   const ctx = useContext(UserContext);
-  const [user, setUser] = useState({});
   
 // checks to see if the email and password match the saved data from registration.
   function handleLogin() {
@@ -28,35 +27,22 @@ export default function Login() {
         return;
       }
 
-    // sets the curren logged-in user at position 1 =>ie index 0
-    let user = act[0].user; 
-    setEmail(act.email);
-
-    ctx.actions.push({
-      user,
-      email,
-      action: "Login",
+    ctx.sessionActivity.push({
+      activity: "Login",
       stamp: timeStamp
     });
 
-    ctx.session={
-      user, 
-      email, 
-      balance:act[0].balance
-    }; 
-
     ctx.log = true;
-
-    setShow(true);
+    setStatus("LogedIn")
+    setShow(false);
     clearForm();
-    
   }
 
   function clearForm() {
     setEmail("");
     setPwd("");
     setIsdisabled(true);
-    setShow(false);
+    // setShow(false);
   }
 
   return (
@@ -71,7 +57,6 @@ export default function Login() {
                 marginTop: "8rem",
                 backgroundColor: "rgba(108, 108, 108, 0.4)",
                 width: "100%",
-                maxWidth: "420px",
                 minHeight: "400px",
                 display: "flex",
                 flexDirection: "column",

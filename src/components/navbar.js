@@ -1,8 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { useContext} from "react";
-import { UserContext } from "../components/context";
 import "./navbar.css";
 
 const menuItems = [
@@ -39,65 +37,56 @@ const menuItems = [
 ];
 
 function NavBar() {
-  
-    const ctx = useContext(UserContext);
   return (
     <>
-      {ctx.log ? (
-        <div >
-           
-          </div>
-      
-      ):(
-        <>
-          
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{marginBottom:"1rem"}}>
-          <div className="container-fluid ms-5">
-            <NavLink to="/" className="navbar-brand fs-1 fw-bold logo">
-              <span className="logocolor">B</span>ad
-              <span className="logocolor2">B</span>ank
-            </NavLink>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div
-              className="collapse navbar-collapse justify-content-end me-5"
-              id="navbarNav"
-            >
-              <div className="navbar-nav nav-pills">
+      <nav
+        className="navbar navbar-expand-lg navbar-dark bg-dark"
+        style={{ marginBottom: "1rem" }}
+      >
+        <div className="container-fluid ms-5">
+          <NavLink to="/" className="navbar-brand fs-1 fw-bold logo">
+            <span className="logocolor">B</span>ad
+            <span className="logocolor2">B</span>ank
+          </NavLink>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div
+            className="collapse navbar-collapse justify-content-end me-5"
+            id="navbarNav"
+          >
+            <div className="navbar-nav nav-pills">
               {menuItems.map((item, index) => (
-                  <OverlayTrigger
+                <OverlayTrigger
+                  key={index}
+                  placement="bottom"
+                  overlay={<Tooltip>{item.description}</Tooltip>}
+                >
+                  <NavLink
                     key={index}
-                    placement="bottom"
-                    overlay={<Tooltip>{item.description}</Tooltip>}
-                  >
-                    <NavLink
-                      key={index}
-                      to={item.path}
-                      className={({ isActive }) =>
-                        isActive
+                    to={item.path}
+                    className={({ isActive }) =>
+                      isActive
                         ? "nav-link fs-6 mx-3 active"
                         : "nav-link fs-6 mx-3"
                     }
                   >
                     {item.name}
                   </NavLink>
-                  </OverlayTrigger>
-                ))}
-              </div>
+                </OverlayTrigger>
+              ))}
             </div>
           </div>
-        </nav>
-        </>
-      )}
+        </div>
+      </nav>
     </>
   );
 }

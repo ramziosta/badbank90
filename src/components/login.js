@@ -27,32 +27,24 @@ function Login() {
   const [user, setUser] = useState({});
   const ctx = useContext(UserContext);
 
-  // function validate(field, label) {
-  //   if (!field) {
-  //     alert(`${label} is required. You can't leave it blank.`);
-  //     // setStatus("Error: " + label);
-  //     // setTimeout(() => setStatus(""), 3000);
-  //     return false;
-  //   }
-  //   return true;
-  // }
+
 
   function handleLogin() {
-    // if (!validate(email, "Email")) return;
+  
     const userLogin = ctx.users.filter(
-      (item) => item.email == email && item.pwd == pwd
+      (item) => item.email === email && item.pwd === pwd
     );
 
-    if (userLogin.length == 0) {
+    if (userLogin.length === 0) {
       alert("email or password is incorrect");
       clearForm();
     }
-    if (userLogin.length != 0) {
+    if (userLogin.length !== 0) {
       setShow(false);
       const elementIndex = ctx.users.findIndex(
-        (item) => item.email == email && item.pwd == pwd
+        (item) => item.email === email && item.pwd === pwd
       );
-      //   const element = ctx.users[elementIndex]
+
       ctx.users.splice(elementIndex, 1);
       ctx.users.splice(0, 0, userLogin[0]);
       setUser(userLogin[0]);

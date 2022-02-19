@@ -7,7 +7,7 @@ function LoginLogoutButton() {
 
   const handleLogout = () => {
     const elementIndex = ctx.users.findIndex(
-      (item) => item.email == "" && item.pwd == ""
+      (item) => item.email === "" && item.pwd === ""
     );
     ctx.users.splice(elementIndex, 1);
     ctx.users.splice(0, 0, {
@@ -21,17 +21,9 @@ function LoginLogoutButton() {
 
   return ctx.log ? (
     <NavLink
-      to="/logout"
-      onClick={() => handleLogout()}   
-    >
-      Logout
-    </NavLink>
+      to="/logout" onClick={() => handleLogout()}>Logout </NavLink>
   ) : (
-    <NavLink
-      to="/login"
-    >
-     Login
-    </NavLink>
+    <NavLink to="/login">Login</NavLink>
   );
 }
 

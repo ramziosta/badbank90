@@ -39,33 +39,19 @@ function Withdraw() {
 
     setBalance(Number(balance) - Number(amount));
     ctx.users[0].balance -= Number(amount);
-    ctx.actions.balance = Number(ctx.session.balance) - Number(amount);
-    ctx.session.balance = Number(ctx.session.balance) - Number(amount);
 
-    let user = ctx.session.name;
-    let email = ctx.session.email;
-
-    updateUser(email);
-    ctx.actions.push({
-      user,
-      email,
+    ctx.users.push({
+   
       transactionType: "Withdrawal",
       amount,
       balance,
       transactionDate: timeStamp,
       stamp: timeStamp,
     });
-
+    setStatus("withdraw")
     setShow(false);
   }
 
-  function updateUser(email) {
-    ctx.users.map((item) => {
-      if (item.email === email) {
-        item.balance = ctx.session.balance;
-      }
-    });
-  }
   function clearForm() {
     setAmount("");
     setIsdisabled(true);
@@ -75,7 +61,7 @@ function Withdraw() {
   return (
     //> shows the log in button and create an account if user not found/ not created/ not logged in
     <>
-      {ctx.users[0].user == "" ? (
+      {ctx.users[0].user === "" ? (
         <>
           <Link to="/login" className="fa fa-user"></Link>
           <div className="text-center fs-4 mt-5" style={{ height: "600px" }}>

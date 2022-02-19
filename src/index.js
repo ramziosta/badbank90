@@ -14,19 +14,18 @@ ReactDOM.render(
       <UserContext.Provider
       value={{
         users: [
-              {
-                user: "",
-                email: "",
-                pwd: "",
-                balance:null,
-                created:"",
-                transactionType: "",
-                transactionAmount: null,
-                transactionDate: null,
+          {
+                // user: "",
+                // email: "",
+                // pwd: "",
+                // balance:null,
+                // created:"",
+                // transactionType: "",
+                // transactionAmount: null,
+                // transactionDate: null,
               },
             ], 
-        actions:[], 
-        session:{},
+        sessionActivity:[],
         log:false,
         login:false,
         register:false

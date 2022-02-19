@@ -1,11 +1,9 @@
 import { useContext } from "react";
 import { UserContext } from "../components/context";
-import LoginLogoutButton from "../components/LoginLogoutButton";
 import SiteSideBar from "../components/siteSideBar";
-import { NavLink, Link } from "react-router-dom";
 import "./alldata.css";
 import Card from "../components/context";
-import { info } from "sass";
+
 
 function DashBoard() {
   const ctx = useContext(UserContext);
@@ -15,18 +13,18 @@ function DashBoard() {
         <div>
           <h4
             className="header"
-            style={{ fontSize: "1.3rem", color:"white" , padding:".4rem", border:"solid black 1px", backgroundColor: "#0079d5"}}
+            style={{ fontSize: "1.3rem", color:"white" , padding:".4rem", border:"solid black 1px", backgroundColor: "#0079d5", width:"100%"}}
           >
-            Account No: xxx-xxx-xxx-{info.accountNumber}
+            Account No: xxx-xxx-xxx-{ctx.users[0].accountNumber}
           </h4>
           <h4
             className="header"
-            style={{ fontSize: "1.3rem", color:"white" , padding:".4rem", border:"solid black 1px", backgroundColor: "grey"}}
+            style={{ fontSize: "1.3rem", color:"white" , padding:".4rem", border:"solid black 1px", backgroundColor: "grey", width:"100%"}}
           >
             Balance: ${ctx.users[0].balance}
           </h4>
           <table >
-            <tr>
+            <tr style={{width:"100%"}}>
               <th>Transaction</th>
               <th>Amount</th>
               <th>Transaction Date </th>  
@@ -40,11 +38,11 @@ function DashBoard() {
 
 
   const Table2 = () => {
-    const Accountdata = ctx.actions.filter((item) => item.user != "");
+    const Accountdata = ctx.users.filter((item) => item.user !== "");
     const UserInfo = Accountdata.map((info, index) => {
       return (
         <div>
-          <table key={index}>
+          <table >
             <tr>
               <td key={info.transactionType}>{info.transactionType}</td>
               <td key={info.amount}>{info.amount}</td>
@@ -61,7 +59,7 @@ function DashBoard() {
 
   return (
       <>
-      {ctx.users[0].user == "" ? (
+      {/* {ctx.users[0].user == "" ? (
         <>
           <Link to="/login" className="fa fa-user"></Link>
           <div className="text-center fs-4 mt-5" style={{ height: "600px" }}>
@@ -71,7 +69,7 @@ function DashBoard() {
           </div>
         </>
       ) : (
-        <>
+        <> */}
           <SiteSideBar />
           <div className="content">
             <Card
@@ -86,8 +84,8 @@ function DashBoard() {
             />
           </div>
         </>
-      )}
-    </>
+    //   )}
+    // </>
   );
 }
 

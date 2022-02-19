@@ -10,7 +10,7 @@ function AllData() {
   const ctx = useContext(UserContext);
 
   const Table = () => {
-    const userdata = ctx.users.filter((item) => item.user != "");
+    const userdata = ctx.users.filter((item) => item.user !== "");
     const UserInfo = userdata.map((info, index) => {
       return (
         <div>
@@ -18,7 +18,7 @@ function AllData() {
             className="header"
             style={{ fontSize: "1.3rem", color:"white" , padding:".4rem", border:"solid black 1px", backgroundColor: "#0079d5"}}
           >
-            Account No. {index +1}:
+            Account No. ending in {ctx.users[0].accountNumber}
           </h4>
           <table key={index}>
             <tr>
@@ -37,6 +37,10 @@ function AllData() {
               <th>Date Created</th>
               <td key={ctx.created}>{info.created}</td>
             </tr>
+            <tr>
+              <th>Account Type</th>
+              <td key={ctx.accountType}>{info.accountType}</td>
+            </tr>
           </table>
         </div>
       );
@@ -48,7 +52,7 @@ function AllData() {
   return (
     //> shows the login button and create an account if user not found/ not created/ not logged in
     <>
-      {ctx.users[0].user == "" ? (
+      {ctx.users[0].user === "" ? (
         <>
           <Link to="/login" className="fa fa-user"></Link>
           <div className="text-center fs-4 mt-5" style={{ height: "600px" }}>

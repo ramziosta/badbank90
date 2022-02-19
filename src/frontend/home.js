@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../components/context";
-// import LoginLogoutButton from "../components/loginlogout";
 import pic2 from "../images/bb7.jpg";
 import pic3 from "../images/bb6.jpg";
 import bb from "../images/bank.png";
 import { Row, Col } from "react-bootstrap";
 
 function Home() {
-  const ctx = useContext(UserContext);
+ 
   return (
     <>
     {/* <div className="text-end text-uppercase">{ctx.users[0].user}</div> */}

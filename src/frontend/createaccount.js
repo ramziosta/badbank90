@@ -15,7 +15,7 @@ import "./SignIn.css";
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{7,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX =
-  /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 // adds a timestamp to the user activity
 const timeStamp = new Date().toLocaleDateString();
@@ -135,22 +135,12 @@ function CreateAccount() {
       ctx.register = false;
       return;
     }
-    setAccountNumber(Math.floor(Math.random()*10000));
 
-    // tracks and saves the activities with time stamp
-    ctx.actions.push({
-      user,
-      email,
-      pwd,
-      amount: 500,
-      balance: 500,
-      transactionType: "New account credit",
-      transactionDate: timeStamp,
-      activity: "New account registration",
-      accountNumber,
-      created: timeStamp,
-      stamp: timeStamp,
-    });
+    //creates a random last 4 digit account number
+    let accountNumber = Math.floor(Math.random()*10000);
+
+    setAccountNumber(accountNumber);
+    console.log("🏦 "+ accountNumber)
 
     // tracks and saves user information and balance
     ctx.users.push({ 
@@ -161,11 +151,17 @@ function CreateAccount() {
       amount: 500, 
       created: timeStamp, 
       transactionDate: timeStamp,
-      transactionType: "New account credit" 
+      transactionType: "New account credit",
+      activity: "New account registration",
+      accountNumber,
+      accountType:"Checking",
+      stamp: timeStamp,
       });
+      console.log("🏦 "+ accountNumber)
 
     // after account is created the registration form is hidden and a success div appears
     setShow(false);
+    setStatus("registered")
     setSuccess(true);
     // this will set the account to registered status
     ctx.register = true; 
@@ -184,7 +180,7 @@ function CreateAccount() {
 // finds the user index by email and password
   const handleLogout = () => {
     const elementIndex = ctx.users.findIndex(
-      (item) => item.email == "" && item.pwd == ""
+      (item) => item.email === "" && item.pwd === ""
     );
     ctx.users.splice(elementIndex, 1);
     ctx.users.splice(0, 0, {
@@ -428,7 +424,7 @@ function CreateAccount() {
           <div className="fs-1 mt-4 text-center" >
           </div>
           <Card
-            style={{ maxWidth: "25rem", marginTop: "5rem", textAlign:"center", marginBottom:"8rem", backgroundColor:"rgba(108, 108, 108, 0.4)", width: "100%", maxWidth: "420px", minHeight: "400px", display: "flex",
+            style={{ maxWidth: "25rem", marginTop: "5rem", textAlign:"center", marginBottom:"8rem", backgroundColor:"rgba(108, 108, 108, 0.4)", width: "100%", minHeight: "400px", display: "flex",
               flexDirection: "column", justifyContent: "flex-start", padding: "1rem" }}
             header="Your account has been created successfully.
              Please Login to access your
@@ -436,7 +432,7 @@ function CreateAccount() {
             status={status}
             body={
               <>
-                <h5 className="fs-2">Success</h5>
+                <h5 className="fs-2">Success  <br />The last 4 digits of your account number are {accountNumber} </h5>
                 <Link to="/login"  className="btn btn-primary fs-2 Link"
                 style={{ borderRadius: "0px" }}>
                  LogIn

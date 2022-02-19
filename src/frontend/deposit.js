@@ -12,6 +12,7 @@ function Deposit() {
   const [balance, setBalance] = useState("");
   const [isDisabled, setIsdisabled] = useState(true);
   const timeStamp = new Date().toLocaleDateString();
+
   const ctx = useContext(UserContext);
 
   function validate(field) {
@@ -34,17 +35,8 @@ function Deposit() {
 
     setBalance(Number(balance) + Number(amount));
     ctx.users[0].balance += Number(amount);
-    ctx.actions.balance = Number(ctx.session.balance) + Number(amount);
-    ctx.session.balance = Number(ctx.session.balance) + Number(amount);
-
-
-    let user = ctx.session.user;
-    let email = ctx.session.email;
-   
-    updateUser(email);
-    ctx.actions.push({
-      user,
-      email,
+  
+      ctx.users.push({
       transactionType: "Deposit",
       amount,
       balance,
@@ -52,15 +44,8 @@ function Deposit() {
       stamp: timeStamp,
     });
 
+    setStatus("deposit")
     setShow(false);
-  }
-
-  function updateUser(email) {
-    ctx.users.map((item) => {
-      if (item.email === email) {
-        item.balance = ctx.session.balance;
-      }
-    });
   }
 
   function clearForm() {
@@ -72,7 +57,7 @@ function Deposit() {
   return (
     // shows the login button and create an account if user not found/ not created/ not logged in
     <>
-      {ctx.users[0].user == "" ? (
+      {ctx.users[0].user === "" ? (
         <>
           <div className="text-center fs-4 mt-5" style={{ height: "600px" }}>
             Please <LoginLogoutButton />
